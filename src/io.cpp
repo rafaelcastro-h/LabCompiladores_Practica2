@@ -285,4 +285,47 @@ bool loadNFAFromJSON(const std::string &path, NFA &out)
     return true;
 }
 
+ /* 
+ * Muestra las tablas de transiciones en consola.
+ */
+
+void imprimirNFA(const NFA &nfa)
+{
+    std::cout << "=== NFA ===\n";
+    std::cout << "Estados: " << nfa.numStates << "\n";
+    std::cout << "Inicio:  " << nfa.start << "\n";
+    std::cout << "Acepta:  " << setToString(nfa.accept) << "\n";
+    std::cout << "Transiciones normales:\n";
+    for (const auto &estado : nfa.delta)
+    {
+        for (const auto &simbolo : estado.second)
+        {
+            std::cout << "  " << estado.first << " --" << simbolo.first << "--> " << setToString(simbolo.second) << "\n";
+        }
+    }
+    std::cout << "Transiciones epsilon (eps):\n";
+    for (const auto &estado : nfa.epsilon)
+    {
+        std::cout << "  " << estado.first << " --eps--> " << setToString(estado.second) << "\n";
+    }
+    std::cout << "===========\n";
+}
+
+void imprimirDFA(const DFA &dfa)
+{
+    std::cout << "=== DFA ===\n";
+    std::cout << "Estados: " << dfa.numStates() << "\n";
+    std::cout << "Inicio:  " << dfa.start << "\n";
+    std::cout << "Acepta:  " << setToString(dfa.accept) << "\n";
+    std::cout << "Transiciones:\n";
+    for (const auto &estado : dfa.delta)
+    {
+        for (const auto &simbolo : estado.second)
+        {
+            std::cout << "  " << estado.first << " --" << simbolo.first << "--> " << simbolo.second << "\n";
+        }
+    }
+    std::cout << "===========\n";
+}
+
 
